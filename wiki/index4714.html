@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats&action=edit by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:05:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<title>View source - OpenStora</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.18.1" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="next" href="http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats" />
+<link rel="shortcut icon" href="http://www.openstora.com/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.openstora.com/wiki/opensearch_desc.php" title="OpenStora (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://www.openstora.com/wiki/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="OpenStora Atom feed" href="http://www.openstora.com/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.monobook&amp;only=styles&amp;skin=monobook&amp;*" />
+<!--[if IE 8]><link rel="stylesheet" href="/wiki/skins/common/IE80Fixes.css?303" media="screen" /><![endif]-->
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE50Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE55Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/wiki/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/wiki/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><meta name="ResourceLoaderDynamicStyles" content="" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: hardwar6_wiki:resourceloader:filter:minify-css:4:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+<script src="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=monobook&amp;*"></script>
+<script>if(window.mw){
+	mw.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "MiniDLNA_for_Stora/Media_Formats", "wgTitle": "MiniDLNA for Stora/Media Formats", "wgCurRevisionId": 940, "wgArticleId": 115, "wgIsArticle": false, "wgAction": "edit", "wgUserName": null, "wgUserGroups": ["*"], "wgCategories": [], "wgBreakFrames": true, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script><script>if(window.mw){
+	mw.loader.load(["mediawiki.page.startup"]);
+}
+</script>
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-MiniDLNA_for_Stora_Media_Formats action-edit skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">View source</h1>
+	<div id="bodyContent">
+		<div id="siteSub">From OpenStora</div>
+		<div id="contentSub">for <a href="http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats" title="MiniDLNA for Stora/Media Formats">MiniDLNA for Stora/Media Formats</a></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p>You do not have permission to edit this page, for the following reason:
+</p>
+<div class="permissions-errors">
+<p>The action you have requested is limited to users in the group: <a href="http://www.openstora.com/wiki/index.php?title=OpenStora:Users" title="OpenStora:Users">Users</a>.
+</p>
+</div>
+<p>You can view and copy the source of this page:
+</p><textarea id="wpTextbox1" name="wpTextbox1" cols="80" rows="25" readonly="">'''Media Formats'''
+
+==Sony Equipment==
+
+The main HD video format supported over DLNA by Sony equipment (up until the 2010 models at least) seems to be AVCHD.  This may also be true for other renderers built into other brands of TV (though I believe most others support HD MKVs, and possibly HD MP4s).   HD MPEG 2 is also supported, but has enormous file sizes.
+
+AVCHD is, believe it or not, the industry standard for distribution of HD media.  It is used both on Blu-ray disks and in DVB-S/T/C 2 broadcasting.  It is also used in video cameras. 
+
+The trouble with Sony devices (and more than likely those of other manufacturers) is that they are very picky about what they will play back, and even then your media needs to be very specifically encoded to allow seeking (i.e. FF/RW).
+
+The supported format for AVCHD files on Sony TVs, Blu-ray and media players and the PS3 is... 
+* MPEG2 Transport stream or .m2ts - this can be created with a tool called tsMuxer
+* H264 video (also called AVC) @ level 4.1 or 4, possibly lower. Blu-ray content is usually 4.1, HDTV is usually 4.0 (in the UK at least)
+* AC3 audio, also known as Dolby digital. MP2 audio can be used if your video format is MPEG2 (MP2 is not MP3 mis-written) this is as used in SD broadcast TV.
+
+==What's wrong with my media files?==
+
+So, having ripped your Blu-ray you find it has VC-1 video rather than AVC (all Warner Bros Blu-rays up until late 2011 seem to use VC-1), or you've sourced an MKV and it does not appear on your TV.
+
+What can you do to play your nice content on your TV?  The problem could be solved by one of the methods below...
+
+# Remux them to .m2ts if they already have h.264 video and AC3 audio
+# Convert the video to h.264 with Blu-ray like encoding parameters if it is either another format, or it does not seek properly.
+# Convert the audio to AC3
+
+==Tools needed==
+
+===Creating AVCHD m2ts container files (Remuxing)===
+
+Use [http://www.videohelp.com/tools/tsMuxeR tsMuxeR] (multiplatform, GUI and command line) to put all the bits and pieces together in the m2ts package.
+
+There's plenty of info on using this tool on various forums, but it's pretty easy to use.
+
+===Generating Blu-ray quality h.264 video===
+
+The steps below use command line tools in linux to generate videos.  The same tools are (I believe) available for Windows and Mac environments, but I do not know if the commands are executed in the same way.  The tools I have used are: 
+
+ffmpeg (default repo version in Ubuntu 11.10)&lt;br/>
+mencoder (from medibuntu repos, version 2:1.0~rc4.dfsg1+svn33713-1+medibuntu2)&lt;br/>
+x264 (built from source, my version is 3:0.119.2106+git07efeb4-1)&lt;br/>
+
+libx264 is the linchpin of the h.264 re-encodes below. 
+
+==Conversion commands==
+
+Similar commands to these can be found all over the Internet. I have tried many of these and failed to produce videos that are listed in the tree, or work correctly when rendered on my Sony TVs via DLNA.  The more important aspects for matching Blu-ray encodes (which seem to produce the best results) are those regarding b frames, b pyramids, the keyint value (number of frames before a full frame is generated - highly correlated with seeking) and the vbv settings.
+
+To alter the quality of the re-encode, and therefore usually the file size, you can change the "crf" value (15 offering the highest quality, with 22 being the default value, and above that giving a faster re-encode, but degraded quality).  
+
+With ffmpeg you can also change the "preset" value (ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow), but the other parameters used in the commands may over-ride the presets.  I have only tested slow and medium (the default) to work with Sony TVs.
+
+===Convert VC1 (or in fact anything) to H264, Blu-Ray format===
+
+For a high quality VC1 Blu-ray re-encode...
+
+ ffmpeg -i filename.m2ts -acodec copy -vcodec libx264 -preset slow -level 4.1 -b-pyramid strict -crf 18 -x264opts keyint=24:slices=4:bframes=3:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000 out/filename.m2ts
+
+or for a lower quality mkv
+
+ ffmpeg -i filename.mkv -acodec copy -vcodec libx264 -preset medium -level 4.1 -b-pyramid strict -crf 22 -x264opts keyint=24:slices=4:bframes=3:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000 out/filename.m2ts
+
+===Convert other audio to AC3 audio=== 
+
+Necessary for some Blu-ray rips (where the main audio track may be some form of DTS or uncompressed PCM-WAV) to be played on Bravias as AVCHD requires AC3 audio
+
+ mencoder input.m2ts -ovc copy -channels 6 -oac lavc -lavcopts acodec=ac3:abitrate=640 -of rawaudio -o output.ac3
+
+Remux this AC3 audio and the video from the original file into an m2ts using tsmuxer
+
+I have found that when running this command with a MKV, I often get an overflow and the job fails.  To work around this I had to convert the file to an m2ts with tsmuxer, then run the command on the m2ts file instead (another step to add!)
+
+===Add subtitles to an MPEG===
+
+As Sony devices do not support subtitles via DLNA, use this re-encode to force subtitles into an mpeg2 DVD rip and convert it to h264.  The command uses subtitle track 0 "-sid 0", changing the number will select a different subtitle track. 
+ 
+If your mpeg does not have the original DVD subs, or they are not very good (e.g. on some of my Chinese imports the subs are quite poor translations) you can remove "-sid 0" and use an external srt file e.g. "-sub Way_of_the_Dragon.srt"
+
+I found if I also copied the audio (making it a one step process), mencoder crashed so I only output video here then remux the audio from the original mpeg and the video from this output file into an m2ts using tsmuxer.
+
+  mencoder Way_of_the_Dragon.mpg -sid 0 -nosound -vf harddup -ovc x264 -x264encopts crf=20:level=4.1:bframes=3:b-pyramid=strict:deblock:cabac:8x8dct:me=umh:subq=4:trellis=1:keyint=25:slices=4:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000:threads=auto -of lavf -o Way_of_the_Dragon_avc.ts
+
+===Convert SD files to AVCHD-SD===
+
+Yes, there really is a rather stupidly named format called AVCHD-SD (advanced video codec high definition - standard definition!!).  I use it to convert my DVD rips to files that still work on my Sony TVs, but that use the better compression offered by h.264 video encoding). 
+On average this makes the file size about 1/2 to 2/3 of the original size.  Some of my files have ended up almost as large or even slightly larger than the originals, I simply kept the originals in this case.
+
+  ffmpeg -i filename.mpg -acodec copy -vcodec libx264 -preset slow -level 4.1 -b-pyramid strict -crf 18 -x264opts \
+  keyint=24:slices=4:bframes=3:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000 filename.m2ts
+
+===Convert both video and audio===
+
+I used this on some very old Doctor Who episodes in avi format to good effect.  The crf value is high, but the source is in black and white and is pretty low quality.  Set it lower to improve the re-encode.
+I'm unsure if ffmpeg is a good tool for doing multi-channel audio, some wide reading suggests this is handled better by mencoder, but for my 2 channel audio (which is probably the same on both channels on the Doctor Who episodes) ffmpeg was fine...
+
+ ffmpeg -i infile.avi -acodec ac3 -ac 2 -ab 128k -vcodec libx264 -level 4.0 -b-pyramid strict -crf 24 -x264opts keyint=30:slices=4:bframes=3:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000 outfile.m2ts
+
+===Batch convert SD files to AVCHD-SD===
+
+As above, but use a 'for' loop to batch process all .mpg files in the current folder.
+
+  for i in $(ls *.mpg|cut -d. -f1) ; do ffmpeg -i $i.mpg -acodec copy -vcodec libx264 -preset slow -level 4.1 -b-pyramid strict -crf 18 -x264opts keyint=24:slices=4:bframes=3:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000 $i.m2ts; done
+
+or
+
+  for i in $(ls *.avi|cut -d. -f1) ; do  ffmpeg -i $i.avi -acodec ac3 -ac 2 -ab 128k -vcodec libx264 -level 4.0 -b-pyramid strict\
+  -x264opts keyint=30:slices=4:bframes=3:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000 $i.m2ts; done
+
+Make sure any files to be converted do not have extra '.' characters (e.g. way.of.the.dragon.mpg) or the loop will fail to cut the filename properly - it will cut at the first period (e.g. try to re-encode 'way.mpg')
+
+
+If you want to get really funky with your loops, you can do something like the following that looks inside a bunch of folders and encodes them one by one, putting the re-encodes into the correct folders in the 'outlocation' folder ...
+
+  for folder in $(ls); do cd $folder; mkdir ~/outlocation/$folder; for i in $(ls *.mpg|cut -d. -f1) ; do ffmpeg -i $i.mpg -acodec copy -vcodec libx264 -preset slow \
+  -level 4.1 -b-pyramid strict -crf 22 -x264opts keyint=24:slices=4:bframes=3:nal-hrd=vbr:aud=1:vbv-bufsize=30000:vbv-maxrate=40000 ~/outlocation/$folder/$i.m2ts; done; cd ../; done</textarea><div class='templatesUsed'>
+
+</div>
+<p id="mw-returnto">Return to <a href="http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats" title="MiniDLNA for Stora/Media Formats">MiniDLNA for Stora/Media Formats</a>.</p>
+<div class="printfooter">
+Retrieved from "<a href="http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats">http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="http://www.openstora.com/wiki/index.php?title=Talk:MiniDLNA_for_Stora/Media_Formats&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" class="selected"><a href="http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+
+<!-- SSO MOD -->
+<a href="http://www.openstora.com/phpBB3/ucp.php?mode=login" title="Login" accesskey="l">Login</a>
+                 / <a href="http://www.openstora.com/phpBB3/ucp.php?mode=register">Register</a>
+<!-- END SSO MOD -->
+
+<!-- 				<li id="pt-anonuserpage"><a href="/wiki/index.php?title=User:112.2.37.23" class="new" title="The user page for the IP address you are editing as [.]" accesskey=".">112.2.37.23</a></li>
+				<li id="pt-anontalk"><a href="/wiki/index.php?title=User_talk:112.2.37.23" class="new" title="Discussion about edits from this IP address [n]" accesskey="n">Talk for this IP address</a></li>
+				<li id="pt-anonlogin"><a href="/wiki/index.php?title=Special:UserLogin&amp;returnto=MiniDLNA+for+Stora%2FMedia+Formats&amp;returntoquery=action%3Dedit" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>
+-->
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a title="Visit the main page" style="background-image: url(http://www.openstora.com/wiki/images/logo.png);" href="http://www.openstora.com/wiki/index.php?title=Main_Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-Website">
+		<h5>Website</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-HHU-Home"><a href="http://www.hardwarehackersunite.com/" rel="nofollow">HHU Home</a></li>
+				<li id="n-HHU-Forum"><a href="http://www.hardwarehackersunite.com/phpBB3" rel="nofollow">HHU Forum</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-Wiki">
+		<h5>Wiki</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Main-Page"><a href="http://www.openstora.com/wiki/index.php?title=Main_Page">Main Page</a></li>
+				<li id="n-Recent-changes"><a href="http://www.openstora.com/wiki/index.php?title=Special:Recentchanges" rel="nofollow">Recent changes</a></li>
+				<li id="n-Help"><a href="http://www.openstora.com/wiki/index.php?title=Help">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="http://www.openstora.com/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search OpenStora [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://www.openstora.com/wiki/index.php?title=Special:WhatLinksHere/MiniDLNA_for_Stora/Media_Formats" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://www.openstora.com/wiki/index.php?title=Special:RecentChangesLinked/MiniDLNA_for_Stora/Media_Formats" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://www.openstora.com/wiki/index.php?title=Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="http://www.openstora.com/wiki/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+	</div>
+	<ul id="f-list">
+		<li id="privacy"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:Privacy_policy" title="OpenStora:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:About" title="OpenStora:About">About OpenStora</a></li>
+		<li id="disclaimer"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:General_disclaimer" title="OpenStora:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+	mw.loader.load(["mediawiki.action.edit", "mediawiki.user", "mediawiki.util", "mediawiki.page.ready", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+}
+</script>
+<script>if(window.mw){
+	mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,
+	"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mw.user.tokens.set({"editToken":"+\\","watchToken":false});;mw.loader.state({"user.options":"ready","user.tokens":"ready"});
+	
+	/* cache key: hardwar6_wiki:resourceloader:filter:minify-js:4:99acc2c3ab516bb21085c70c2195f3df */
+}
+</script><!-- Served in 3.561 secs. --></body>
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=MiniDLNA_for_Stora/Media_Formats&action=edit by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:05:41 GMT -->
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=RSyncBackup&action=edit by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:03:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<title>View source - OpenStora</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.18.1" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="next" href="http://www.openstora.com/wiki/index.php?title=RSyncBackup" />
+<link rel="shortcut icon" href="http://www.openstora.com/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.openstora.com/wiki/opensearch_desc.php" title="OpenStora (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://www.openstora.com/wiki/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="OpenStora Atom feed" href="http://www.openstora.com/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.monobook&amp;only=styles&amp;skin=monobook&amp;*" />
+<!--[if IE 8]><link rel="stylesheet" href="/wiki/skins/common/IE80Fixes.css?303" media="screen" /><![endif]-->
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE50Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE55Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/wiki/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/wiki/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><meta name="ResourceLoaderDynamicStyles" content="" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: hardwar6_wiki:resourceloader:filter:minify-css:4:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+<script src="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=monobook&amp;*"></script>
+<script>if(window.mw){
+	mw.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "RSyncBackup", "wgTitle": "RSyncBackup", "wgCurRevisionId": 1034, "wgArticleId": 92, "wgIsArticle": false, "wgAction": "edit", "wgUserName": null, "wgUserGroups": ["*"], "wgCategories": [], "wgBreakFrames": true, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script><script>if(window.mw){
+	mw.loader.load(["mediawiki.page.startup"]);
+}
+</script>
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-RSyncBackup action-edit skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">View source</h1>
+	<div id="bodyContent">
+		<div id="siteSub">From OpenStora</div>
+		<div id="contentSub">for <a href="http://www.openstora.com/wiki/index.php?title=RSyncBackup" title="RSyncBackup">RSyncBackup</a></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p>You do not have permission to edit this page, for the following reason:
+</p>
+<div class="permissions-errors">
+<p>The action you have requested is limited to users in the group: <a href="http://www.openstora.com/wiki/index.php?title=OpenStora:Users" title="OpenStora:Users">Users</a>.
+</p>
+</div>
+<p>You can view and copy the source of this page:
+</p><textarea id="wpTextbox1" name="wpTextbox1" cols="80" rows="25" readonly="">== Introduction ==
+The aim of this is to have a synced folder that will automatically back up to a remote location. The main reason that I wanted to do this was so that I could have a folder of documents backed up to my VPS and synced to my work machine and laptops. 
+
+It is similar in style to the 'dropbox' service.
+
+It is largely based by this [http://fak3r.com/2009/09/14/howto-build-your-own-open-source-dropbox-clone/ HOWTO]. It just covers a number of points for installing on the Stora!
+
+This guide assumes you have a fully working package management system as described here - [[Installing a package manager]] and also assumes that you have SSH fully working.
+
+== SSH Key Setup ==
+
+# Setup your ssh keys to your remote server by doing the following:
+## Generate your keys (don't enter a password - this enables you to have the syncing done without user intervention!) &lt;code>ssh-keygen -N '' -f ~/.ssh/id_dsa&lt;/code>
+## Copy public key to server so you can login &lt;code>ssh-copy-id -i ~/.ssh/id_dsa.pub user@REMOTE_SERVER&lt;/code>
+## Tidy up permissions &lt;code>ssh user@REMOTE_SERVER 'chmod 700 .ssh'&lt;/code>
+## Check you can login without a password &lt;code>ssh user@REMOTE_SERVER&lt;/code>
+
+== Software Install ==
+# Now prepare for the &lt;code>lsyncd&lt;/code> build by installing the following packages by running the command &lt;code>sudo ipkg install &lt;pkg name>&lt;/code>
+## gcc
+## lua
+## make
+## pkgconfig
+## rsync
+#You need to add the newly installed packages into the $PATH variable : &lt;code>PATH=$PATH:/home/opt/bin&lt;/code>
+# Download and untar &lt;code>lsyncd&lt;/code> from the [http://code.google.com/p/lsyncd/ lsyncd project]
+# Configure the build by running &lt;code>./configure --prefix=/opt/local --exec-prefix=/opt&lt;/code> (this assumes your addition software is on /opt, otherwise tailor to your needs, but avoid the onboard flash!)
+# Modify the &lt;code>Makefile&lt;/code> to set the following:
+## &lt;code>LDFLAGS = -ldl&lt;/code>
+# Assuming you got no errors from the configure do &lt;code>make all&lt;/code>
+# Now do &lt;code>sudo -E make install&lt;/code> (the -E just utilises the same environment settings of the current user as when doing sudo PATH seems to disappear and it won't be able to find the commands!)
+# Now run &lt;code>sudo ln -s /opt/lib/liblua.so /usr/lib/liblua.so&lt;/code> so that &lt;code>lsyncd&lt;/code> can locate the library
+# Now run &lt;code>lsyncd -help&lt;/code> to see if all is well (you should get a list of options)!
+
+== Configuration ==
+
+(Please refer to the [http://code.google.com/p/lsyncd/wiki/Lsyncd20Manual#The_Configuration_File lsync manual] for comprehensive guidance)
+
+# Copy  &lt;code>example/lrsyncssh.lua&lt;/code> to a location of your choice (I created &lt;code>$HOME/sync_config&lt;/code>)
+# Fill out the configuration file &lt;code>sync_conf.lua&lt;/code> with the appropriate details (the file can be put anywhere):
+&lt;code>
+sync{default.rsyncssh, source="/path/to/src", host="user@REMOTE_SERVER", targetdir="/path/to/dst", rsyncOps=""}
+&lt;/code>
+# Run &lt;code>lsyncd&lt;/code> in no daemon mode to check for errors:
+&lt;code> lsyncd -nodaemon sync_conf.lua&lt;/code>
+# Drop some files in the watched directory and make sure they get uploaded properly with no errors
+# Run &lt;code>lsyncd&lt;/code> in daemon mode to have it watch the folder:
+&lt;code>lsyncd sync_conf.lua&lt;/code>
+
+== Reverse Sync ==
+
+Adding the following crontab line is particularly useful if you want to have your laptop or other machines sync up, or at least have the Stora pull from the remote server.
+
+&lt;code>*       *       *       *       *       rsync -ltur user@REMOTE_SERVER:/path/to/src/ /path/to/dst >> /path/to/log/dir/rsync_pull.log&lt;/code>
+
+== Final Comments ==
+
+This setup can be replicated on your laptop and work machines to create the full dropbox like experience.</textarea><div class='templatesUsed'>
+
+</div>
+<p id="mw-returnto">Return to <a href="http://www.openstora.com/wiki/index.php?title=RSyncBackup" title="RSyncBackup">RSyncBackup</a>.</p>
+<div class="printfooter">
+Retrieved from "<a href="http://www.openstora.com/wiki/index.php?title=RSyncBackup">http://www.openstora.com/wiki/index.php?title=RSyncBackup</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="http://www.openstora.com/wiki/index.php?title=RSyncBackup" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="http://www.openstora.com/wiki/index.php?title=Talk:RSyncBackup&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" class="selected"><a href="http://www.openstora.com/wiki/index.php?title=RSyncBackup&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://www.openstora.com/wiki/index.php?title=RSyncBackup&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+
+<!-- SSO MOD -->
+<a href="http://www.openstora.com/phpBB3/ucp.php?mode=login" title="Login" accesskey="l">Login</a>
+                 / <a href="http://www.openstora.com/phpBB3/ucp.php?mode=register">Register</a>
+<!-- END SSO MOD -->
+
+<!-- 				<li id="pt-anonuserpage"><a href="/wiki/index.php?title=User:112.2.37.23" class="new" title="The user page for the IP address you are editing as [.]" accesskey=".">112.2.37.23</a></li>
+				<li id="pt-anontalk"><a href="/wiki/index.php?title=User_talk:112.2.37.23" class="new" title="Discussion about edits from this IP address [n]" accesskey="n">Talk for this IP address</a></li>
+				<li id="pt-anonlogin"><a href="/wiki/index.php?title=Special:UserLogin&amp;returnto=RSyncBackup&amp;returntoquery=action%3Dedit" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>
+-->
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a title="Visit the main page" style="background-image: url(http://www.openstora.com/wiki/images/logo.png);" href="http://www.openstora.com/wiki/index.php?title=Main_Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-Website">
+		<h5>Website</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-HHU-Home"><a href="http://www.hardwarehackersunite.com/" rel="nofollow">HHU Home</a></li>
+				<li id="n-HHU-Forum"><a href="http://www.hardwarehackersunite.com/phpBB3" rel="nofollow">HHU Forum</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-Wiki">
+		<h5>Wiki</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Main-Page"><a href="http://www.openstora.com/wiki/index.php?title=Main_Page">Main Page</a></li>
+				<li id="n-Recent-changes"><a href="http://www.openstora.com/wiki/index.php?title=Special:Recentchanges" rel="nofollow">Recent changes</a></li>
+				<li id="n-Help"><a href="http://www.openstora.com/wiki/index.php?title=Help">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="http://www.openstora.com/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search OpenStora [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://www.openstora.com/wiki/index.php?title=Special:WhatLinksHere/RSyncBackup" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://www.openstora.com/wiki/index.php?title=Special:RecentChangesLinked/RSyncBackup" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://www.openstora.com/wiki/index.php?title=Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="http://www.openstora.com/wiki/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+	</div>
+	<ul id="f-list">
+		<li id="privacy"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:Privacy_policy" title="OpenStora:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:About" title="OpenStora:About">About OpenStora</a></li>
+		<li id="disclaimer"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:General_disclaimer" title="OpenStora:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+	mw.loader.load(["mediawiki.action.edit", "mediawiki.user", "mediawiki.util", "mediawiki.page.ready", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+}
+</script>
+<script>if(window.mw){
+	mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,
+	"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mw.user.tokens.set({"editToken":"+\\","watchToken":false});;mw.loader.state({"user.options":"ready","user.tokens":"ready"});
+	
+	/* cache key: hardwar6_wiki:resourceloader:filter:minify-js:4:99acc2c3ab516bb21085c70c2195f3df */
+}
+</script><!-- Served in 1.932 secs. --></body>
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=RSyncBackup&action=edit by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:03:37 GMT -->
+</html>

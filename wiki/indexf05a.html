@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP&action=edit by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:01:45 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<title>View source - OpenStora</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.18.1" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="next" href="http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP" />
+<link rel="shortcut icon" href="http://www.openstora.com/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.openstora.com/wiki/opensearch_desc.php" title="OpenStora (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://www.openstora.com/wiki/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="OpenStora Atom feed" href="http://www.openstora.com/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.monobook&amp;only=styles&amp;skin=monobook&amp;*" />
+<!--[if IE 8]><link rel="stylesheet" href="/wiki/skins/common/IE80Fixes.css?303" media="screen" /><![endif]-->
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE50Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE55Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/wiki/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/wiki/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><meta name="ResourceLoaderDynamicStyles" content="" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: hardwar6_wiki:resourceloader:filter:minify-css:4:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+<script src="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=monobook&amp;*"></script>
+<script>if(window.mw){
+	mw.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Root_Access_Via_TFTP", "wgTitle": "Root Access Via TFTP", "wgCurRevisionId": 836, "wgArticleId": 6, "wgIsArticle": false, "wgAction": "edit", "wgUserName": null, "wgUserGroups": ["*"], "wgCategories": [], "wgBreakFrames": true, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script><script>if(window.mw){
+	mw.loader.load(["mediawiki.page.startup"]);
+}
+</script>
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Root_Access_Via_TFTP action-edit skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">View source</h1>
+	<div id="bodyContent">
+		<div id="siteSub">From OpenStora</div>
+		<div id="contentSub">for <a href="http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP" title="Root Access Via TFTP">Root Access Via TFTP</a></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p>You do not have permission to edit this page, for the following reason:
+</p>
+<div class="permissions-errors">
+<p>The action you have requested is limited to users in the group: <a href="http://www.openstora.com/wiki/index.php?title=OpenStora:Users" title="OpenStora:Users">Users</a>.
+</p>
+</div>
+<p>You can view and copy the source of this page:
+</p><textarea id="wpTextbox1" name="wpTextbox1" cols="80" rows="25" readonly="">=== '''YOU ALMOST CERTAINLY DO NOT WANT TO DO THIS''' ===
+
+'''See [[Easy Root Access]] for a much saner way to gain root access.''' You only really need to use this TFTP method to gain root access if you have previously gained root control and then locked yourself out of the system by, for example, corrupting the /etc/sudoers file. (Stop laughing at the back.)
+
+==How to gain root access on your Netgear Stora==
+Author: Bryan McGuire 
+&lt;br>Edited by: Nathan Willard, Dustin Essington
+
+The Netgear Stora, out of the box, runs an ssh server.  
+The password, however, is disabled.  The only way to log into the Stora is as root, and there is absolutely no password you can enter for root that will work.   
+
+What you will do in this hack is add a public key for ssh onto your stora, and get a root shell without needing a password.
+
+==Required Items==
+*A pc running linux (redhat, debian, gentoo, ubuntu, doesn't matter) with an unused ethernet interface. (OS X will have issues with the NFS export/tar archive. It can't be used.) Edit: aetaric (not needed: with an unused ethernet interface) Edit: yopnono
+*A Netgear Stora
+*A Ethernet switch preferably:a gigabit Ethernet switch -- NFS root filesystems suck hard, and are barely usable with anything less. (but it works) Edit: yopnono
+*A couple of ethernet cables to hook the above three items together. 
+
+Alternatively you could use:
+*Crossover cables (you don't even need a crossover cable, Stora is autosensing so a regular cable can be used to hook-up the Stora directly to the laptop with Gigabit connection!) Edit: pippone
+
+==Installing Support Software==
+You now have to install the required software on your linux machine, if you haven't already.  Using apt-get, emerge, yum, or whatever, install the following:
+*nfs server (for me, it's called "nfs-kernel-server" )
+*tftpd
+*wireshark (formerly called ethereal -- if you know how to use snort you can use that instead.
+
+Set up your ethernet interface with the ip of 10.0.0.1 and a netmask of 255.0.0.0, its default route (gateway) needs to be the interface address itself, 10.0.0.1
+
+turn on ip masquerading: (not needed) Edit: yopnono
+
+&lt;pre>
+echo "1" > /proc/sys/net/ipv4/ip_forward
+echo "1" > /proc/sys/net/ipv4/ip_dynaddr
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+&lt;/pre>
+
+'''Note:''' eth0 is interface used for your linux box's internet connection, and not eth1, which is used by the 10.x.x.x network for the Stora)
+
+==Obtain Alternate File system and Kernel==
+If you haven't yet downloaded the files you'll need, do so from [http://www.openstora.com/files/albums/uploads/alternates_tar.bz2 here].
+
+Make sure you don't have anything under /mnt cause extracting the archive will eventually overwrite that directory
+
+Make sure you are root
+
+Move the alternates.tar.bz2 from wherever you downloaded it to the root directory of your linux machine:
+&lt;pre>
+> mv alternates.tar.bz2 /alternates.tar.bz2
+&lt;/pre>
+
+Extract these files on to your Linux machine:
+&lt;pre>
+> cd /
+> tar xvjf alternates.tar.bz2
+&lt;/pre>
+
+configure your nfs server by adding the following in the ''/etc/exports'' file:
+
+&lt;pre>
+/mnt/Axentra/marvell.nfs.rootfs/ 10.0.0.0/8(rw,no_root_squash,sync,no_subtree_check)
+&lt;/pre>
+
+rehash the nfs-server:
+&lt;pre>
+> service nfs-kernel-server restart
+&lt;/pre>
+
+in ''/etc/inetd.conf'', enable your tftpd server by adding the following line:
+
+&lt;pre>
+tftp        dgram    udp    wait    nobody    /usr/sbin/tcpd    /usr/sbin/in.tftpd /tftpboot
+&lt;/pre>
+
+rehash the intetd daemon:
+&lt;pre>
+> killall -HUP inetd
+&lt;/pre>
+
+'''Note:''' some linux distros (ubuntu 9.10) don't use inetd anymore, they're using xinetd, you have three options: configure tftpd with xinetd, replace xinetd with inetd or install a daemon version of tftpd. Here's how to install the daemon version "tftpd-hpa" (recommended for Ubuntu 9.10):
+
+&lt;pre>
+apt-get install tftpd-hpa
+&lt;/pre>
+
+Change this file and set the following options:
+
+&lt;pre>
+vi /etc/default/tftpd-hpa
+
+#Defaults for tftpd-hpa
+
+RUN_DAEMON="yes"
+
+OPTIONS="-l -s /tftpboot"
+&lt;/pre>
+
+Restart the daemon
+
+&lt;pre>
+sudo /etc/init.d/tftpd-hpa restart
+&lt;/pre>
+
+'''Note:''' tftpd-hpa seems to be a bit on the buggy side and if you get an 'Error1: File not found error' then it's highly likely that the daemon has ignored your preference for the root directory and is looking its default directory which is /var/lib/tftpboot. Putting the uImage file in there will likely solve your problem.
+
+==Starting the Magic==
+
+Start up wireshark (you may have to be root to do this) and start listening to eth1
+
+While holding down the small reset button on the stora with a paper clip (or equivalent instrument), turn on the stora. You'll need to hold in the reset button for quite some time.
+  
+The lights on the front panel will go through three cycles. Eventually, you will see the tftp transfer in wireshark, and at this point you can release the reset button.
+
+After the tftp transfer, there will be a couple of arp requests, and then you should see the nfs activity. Your linux drive will start working like crazy as your Stora boots with the nfs mounted alternate filesystem.
+
+Once the Stora is booted, you will be able to log into it.  
+
+The ip address you need to use will be in wireshark, It's the ''10.x.x.x'' address that's not 10.0.0.1.
+
+&lt;pre>ssh root@10.x.x.x &lt;/pre>
+'''Note:''' ''x'' denotes the ip of the Stora found in wireshark.
+
+The password will be ''root''
+
+Mount the Stora's regular root filesystem, by running the following commands while logged into the Stora:
+&lt;pre>
+mkdir -p /mnt/ubifs
+cd /lib/modules/2.6.22.18-Netgear
+modprobe ubi mtd=2,2048
+modprobe ubifs
+mount -t ubifs ubi0:rootfs /mnt/ubifs
+&lt;/pre>
+The Stora's regular file system is now mounted on ''/mnt/ubifs''
+
+Add your public ssh key into ''/mnt/ubifs/root/.ssh/authorized_keys'' and type
+&lt;pre>
+shutdown -h now
+&lt;/pre>
+the stora will then shutdown and turn itself off.
+
+Now you can move the Stora back to your regular network and ssh into it as root using your private ssh key.
+ 
+==Disclaimers==
+
+I did all this using ubuntu 9.10 running on a Mac Pro, and the config lines for nfs, tftpd, and such are what work on my machine with my Stora.  You might have to use something else for your particular distro and/or particular unit.  I'm detailing what finally worked for me. This might not work for you.  You may end up bricking your Stora, and if you do, don't blame me. I don't work for Netgear, HipServ, or anyone related to the sale, development, or distribution of this device. I'm just someone who bought one at Best Buy, loved the hardware, but was thoroughly unhappy with its firmware.</textarea><div class='templatesUsed'>
+
+</div>
+<p id="mw-returnto">Return to <a href="http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP" title="Root Access Via TFTP">Root Access Via TFTP</a>.</p>
+<div class="printfooter">
+Retrieved from "<a href="http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP">http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="http://www.openstora.com/wiki/index.php?title=Talk:Root_Access_Via_TFTP&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource" class="selected"><a href="http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+
+<!-- SSO MOD -->
+<a href="http://www.openstora.com/phpBB3/ucp.php?mode=login" title="Login" accesskey="l">Login</a>
+                 / <a href="http://www.openstora.com/phpBB3/ucp.php?mode=register">Register</a>
+<!-- END SSO MOD -->
+
+<!-- 				<li id="pt-anonuserpage"><a href="/wiki/index.php?title=User:112.2.37.23" class="new" title="The user page for the IP address you are editing as [.]" accesskey=".">112.2.37.23</a></li>
+				<li id="pt-anontalk"><a href="/wiki/index.php?title=User_talk:112.2.37.23" class="new" title="Discussion about edits from this IP address [n]" accesskey="n">Talk for this IP address</a></li>
+				<li id="pt-anonlogin"><a href="/wiki/index.php?title=Special:UserLogin&amp;returnto=Root+Access+Via+TFTP&amp;returntoquery=action%3Dedit" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>
+-->
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a title="Visit the main page" style="background-image: url(http://www.openstora.com/wiki/images/logo.png);" href="http://www.openstora.com/wiki/index.php?title=Main_Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-Website">
+		<h5>Website</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-HHU-Home"><a href="http://www.hardwarehackersunite.com/" rel="nofollow">HHU Home</a></li>
+				<li id="n-HHU-Forum"><a href="http://www.hardwarehackersunite.com/phpBB3" rel="nofollow">HHU Forum</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-Wiki">
+		<h5>Wiki</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Main-Page"><a href="http://www.openstora.com/wiki/index.php?title=Main_Page">Main Page</a></li>
+				<li id="n-Recent-changes"><a href="http://www.openstora.com/wiki/index.php?title=Special:Recentchanges" rel="nofollow">Recent changes</a></li>
+				<li id="n-Help"><a href="http://www.openstora.com/wiki/index.php?title=Help">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="http://www.openstora.com/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search OpenStora [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://www.openstora.com/wiki/index.php?title=Special:WhatLinksHere/Root_Access_Via_TFTP" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://www.openstora.com/wiki/index.php?title=Special:RecentChangesLinked/Root_Access_Via_TFTP" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://www.openstora.com/wiki/index.php?title=Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="http://www.openstora.com/wiki/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+	</div>
+	<ul id="f-list">
+		<li id="privacy"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:Privacy_policy" title="OpenStora:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:About" title="OpenStora:About">About OpenStora</a></li>
+		<li id="disclaimer"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:General_disclaimer" title="OpenStora:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+	mw.loader.load(["mediawiki.action.edit", "mediawiki.user", "mediawiki.util", "mediawiki.page.ready", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+}
+</script>
+<script>if(window.mw){
+	mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,
+	"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mw.user.tokens.set({"editToken":"+\\","watchToken":false});;mw.loader.state({"user.options":"ready","user.tokens":"ready"});
+	
+	/* cache key: hardwar6_wiki:resourceloader:filter:minify-js:4:99acc2c3ab516bb21085c70c2195f3df */
+}
+</script><!-- Served in 2.852 secs. --></body>
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=Root_Access_Via_TFTP&action=edit by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:01:45 GMT -->
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=Fixing_smartmontools&printable=yes by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:02:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<title>Fixing smartmontools - OpenStora</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.18.1" />
+<meta name="robots" content="noindex,follow" />
+<link rel="shortcut icon" href="http://www.openstora.com/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="opensearch_desc.php" title="OpenStora (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="api251f.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="OpenStora Atom feed" href="index890f.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="load618b.css?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.monobook&amp;only=styles&amp;printable=1&amp;skin=monobook&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: hardwar6_wiki:resourceloader:filter:minify-css:4:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+<script src="loadaa7b.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;printable=1&amp;skin=monobook&amp;*"></script>
+<script>if(window.mw){
+	mw.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Fixing_smartmontools", "wgTitle": "Fixing smartmontools", "wgCurRevisionId": 1036, "wgArticleId": 62, "wgIsArticle": true, "wgAction": "view", "wgUserName": null, "wgUserGroups": ["*"], "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script><script>if(window.mw){
+	mw.loader.load(["mediawiki.page.startup"]);
+}
+</script>
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Fixing_smartmontools action-view skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">Fixing smartmontools</h1>
+	<div id="bodyContent">
+		<div id="siteSub">From OpenStora</div>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<div lang="en" dir="ltr" class="mw-content-ltr"><p>The configuration file <i>/etc/smartd.conf</i> has the statement <b>DEVICESCAN</b> in it, which makes the smartmontools daemon (smartd) scan for all disks. However this doesn't work (at least not on mine). Fire up the daemon in debug mode to see if it's running properly.
+</p><p><b>smartd -d</b>
+</p><p>output on my machine
+<i><br />...</i>
+<i><br />Device: /dev/sda, opened</i>
+<i><br />Device: /dev/sda, IE (SMART) not enabled, skip device</i>
+<i><br />Try 'smartctl -s on /dev/sda' to turn on SMART features</i>
+<i><br />Unable to register SCSI device /dev/sda at line 23 of file /etc/smartd.conf</i>
+<i><br />Unable to monitor any SMART enabled devices. Try debug (-d) option. Exiting...</i>
+</p>
+<h2> <span class="mw-headline" id="Activate_SMART_on_the_disk.28s.29"> Activate SMART on the disk(s) </span></h2>
+<p>When running the above command (smartd -d) you see the devicename <b>Device: /dev/sda, opened</b>
+</p><p>Before activate SMART on the disk, you can make a support-test: <b>smartctl -i -d marvell /dev/sda</b>.
+</p><p>To activate SMART on the above disk, run the following command
+<b>smartctl -s on -d marvell /dev/sda</b>
+The Stora should respond with SMART Enabled.
+</p>
+<h2> <span class="mw-headline" id="Configure_SMART_to_run_selfchecks"> Configure SMART to run selfchecks </span></h2>
+<p>Edit the configuration file <b>/etc/smartd.conf</b>. Start by commenting out the DEVICESCAN (add a pound in front of it).
+</p><p>Now add monitoring for your disc, e.g. (-m specified where to send an email if disk problems occur)
+</p><p><i>/dev/sda -d marvell -a -o on -S on -s (S/../../.02|L/../../6/03) -m &lt;user&gt;@&lt;yourdomain&gt;</i> 
+</p><p>save and close the file and fire up the daemon <b>smartd -d</b> again. (exit smartd by pressing ctrl - \)
+</p><p>Don't forget to enable smartd to run at system boot
+</p>
+<pre> /sbin/chkconfig --levels 2345 smartd on
+</pre>
+<h2> <span class="mw-headline" id="Configure_SMART_to_send_email_notification_messages_using_ssmtp"> Configure SMART to send email notification messages using ssmtp </span></h2>
+<p>If you haven't installed <b>mail</b> in your system (it is not installed by default, at least in the GoFlex Home) you have to tell smartd to use <b>ssmtp</b> to send the messages. Note that first you have to configure SSMTP. You may want to <a href="indexfdb5.html?title=Configuring_SSMTP_for_Gmail" title="Configuring SSMTP for Gmail"> use a Gmail account</a> for that.
+</p><p>Since the syntax for <b>ssmtp</b> is different of the syntax of <b>mail</b> it is needed to create a script to send the email and tell smartd to use it to use it. I created the script <b>/usr/local/bin/mailto</b> containing
+</p>
+<pre>#! /bin/bash
+
+TMP_FILE=/tmp/Smartctl.error.txt
+
+echo To:  $SMARTD_ADDRESS &gt; $TMP_FILE 
+echo Subject:  "$SMARTD_SUBJECT" &gt;&gt; $TMP_FILE 
+echo &gt;&gt; $TMP_FILE 
+echo &gt;&gt; $TMP_FILE 
+
+# Save the email message (STDIN) to a file:
+cat &gt;&gt; $TMP_FILE 
+
+# Append the output of smartctl -a to the message:
+smartctl -a -d $SMARTD_DEVICETYPE $SMARTD_DEVICE &gt;&gt; $TMP_FILE 
+
+# Now email the message to the user at address ADD:
+/usr/sbin/sendmail  $SMARTD_ADDRESS &lt;  $TMP_FILE 
+
+# Delete temporary file
+rm $TMP_FILE 
+</pre>
+<p>Add execute permission to the file running
+</p>
+<pre>chmod +x /usr/local/bin/mailto
+</pre>
+<p>Edit the configuration file <b>/etc/smartd.conf</b> as
+</p><p><i>/dev/sda -d marvell  -i 190 -a -o on -S on -s (S/../../.02|L/../../6/03) -m &lt;user&gt;@&lt;yourdomain&gt; -M exec /usr/local/bin/mailto</i> 
+</p><p>and restart the service using
+</p>
+<pre>service smartd restart 
+</pre>
+<p>The <i>-i 190</i> option tells smartd to ignore the attribute 190 when checking for failure. Attribute 190 is 100-celsius temperature in Seagate disks. Ignoring it avoids receiving an email every time this attribute changes.
+</p><p>To test that everything is working you can edit the configuration file <b>/etc/smartd.conf</b> as
+</p><p><i>/dev/sda -d marvell  -i 190 -a -o on -S on -s (S/../../.02|L/../../6/03) -m &lt;user&gt;@&lt;yourdomain&gt; -M exec /usr/local/bin/mailto -M test</i> 
+</p><p>and run
+</p>
+<pre>service smartd restart 
+</pre>
+<p>This will restart the service and send an email to your &lt;user&gt;@&lt;yourdomain&gt; account. If you don't receive any email, check your <i>messages</i> log file for any error. Remember to remove the <i>-M test</i> when done.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 11/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key hardwar6_wiki:pcache:idhash:62-0!*!0!!*!*!* and timestamp 20140121200753 -->
+</div><div class="printfooter">
+Retrieved from "<a href="index978b.html?title=Fixing_smartmontools&amp;oldid=1036">http://www.openstora.com/wiki/index.php?title=Fixing_smartmontools&amp;oldid=1036</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="index0e17.html?title=Fixing_smartmontools" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="indexa2be.html?title=Talk:Fixing_smartmontools&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="index1eb2.html?title=Fixing_smartmontools&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="indexbfbe.html?title=Fixing_smartmontools&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+
+<!-- SSO MOD -->
+<a href="http://www.openstora.com/phpBB3/ucp.php?mode=login" title="Login" accesskey="l">Login</a>
+                 / <a href="http://www.openstora.com/phpBB3/ucp.php?mode=register">Register</a>
+<!-- END SSO MOD -->
+
+<!-- 				<li id="pt-anonuserpage"><a href="/wiki/index.php?title=User:112.2.37.23" class="new" title="The user page for the IP address you are editing as [.]" accesskey=".">112.2.37.23</a></li>
+				<li id="pt-anontalk"><a href="/wiki/index.php?title=User_talk:112.2.37.23" class="new" title="Discussion about edits from this IP address [n]" accesskey="n">Talk for this IP address</a></li>
+				<li id="pt-anonlogin"><a href="/wiki/index.php?title=Special:UserLogin&amp;returnto=Fixing+smartmontools&amp;returntoquery=printable%3Dyes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>
+-->
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a title="Visit the main page" style="background-image: url(images/logo.png);" href="index4875.html?title=Main_Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-Website">
+		<h5>Website</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-HHU-Home"><a href="http://www.hardwarehackersunite.com/" rel="nofollow">HHU Home</a></li>
+				<li id="n-HHU-Forum"><a href="http://www.hardwarehackersunite.com/phpBB3" rel="nofollow">HHU Forum</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-Wiki">
+		<h5>Wiki</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Main-Page"><a href="index4875.html?title=Main_Page">Main Page</a></li>
+				<li id="n-Recent-changes"><a href="indexa414.html?title=Special:Recentchanges" rel="nofollow">Recent changes</a></li>
+				<li id="n-Help"><a href="index4c21.html?title=Help">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="http://www.openstora.com/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search OpenStora [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="index7929.html?title=Special:WhatLinksHere/Fixing_smartmontools" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="index6111.html?title=Special:RecentChangesLinked/Fixing_smartmontools" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="indexc7ac.html?title=Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li id="t-permalink"><a href="index978b.html?title=Fixing_smartmontools&amp;oldid=1036" title="Permanent link to this revision of the page">Permanent link</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+	</div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 2 January 2013, at 23:34.</li>
+		<li id="viewcount">This page has been accessed 16,333 times.</li>
+		<li id="privacy"><a href="indexa914.html?title=OpenStora:Privacy_policy" title="OpenStora:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="index9a54.html?title=OpenStora:About" title="OpenStora:About">About OpenStora</a></li>
+		<li id="disclaimer"><a href="index640c.html?title=OpenStora:General_disclaimer" title="OpenStora:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+	mw.loader.load(["mediawiki.user", "mediawiki.util", "mediawiki.page.ready", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+}
+</script>
+<script>if(window.mw){
+	mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,
+	"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mw.user.tokens.set({"editToken":"+\\","watchToken":false});;mw.loader.state({"user.options":"ready","user.tokens":"ready"});
+	
+	/* cache key: hardwar6_wiki:resourceloader:filter:minify-js:4:99acc2c3ab516bb21085c70c2195f3df */
+}
+</script><!-- Served in 0.356 secs. --></body>
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=Fixing_smartmontools&printable=yes by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:02:28 GMT -->
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=Enable_system_logging&oldid=949 by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:02:04 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<title>Enable system logging - OpenStora</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.18.1" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="http://www.openstora.com/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.openstora.com/wiki/opensearch_desc.php" title="OpenStora (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://www.openstora.com/wiki/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="OpenStora Atom feed" href="http://www.openstora.com/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.monobook&amp;only=styles&amp;skin=monobook&amp;*" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE50Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE55Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/wiki/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/wiki/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><meta name="ResourceLoaderDynamicStyles" content="" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: hardwar6_wiki:resourceloader:filter:minify-css:4:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+<script src="http://www.openstora.com/wiki/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=monobook&amp;*"></script>
+<script>if(window.mw){
+	mw.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Enable_system_logging", "wgTitle": "Enable system logging", "wgCurRevisionId": 949, "wgArticleId": 37, "wgIsArticle": true, "wgAction": "view", "wgUserName": null, "wgUserGroups": ["*"], "wgCategories": [], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script><script>if(window.mw){
+	mw.loader.load(["mediawiki.page.startup"]);
+}
+</script>
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Enable_system_logging action-view skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">Enable system logging</h1>
+	<div id="bodyContent">
+		<div id="siteSub">From OpenStora</div>
+		<div id="contentSub">
+				<div id="mw-revision-info">Revision as of 10:05, 14 February 2012 by <a href="http://www.openstora.com/wiki/index.php?title=User:T0x&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:T0x (page does not exist)">T0x</a>  <span class="mw-usertoollinks">(<a href="http://www.openstora.com/wiki/index.php?title=User_talk:T0x&amp;action=edit&amp;redlink=1" class="new" title="User talk:T0x (page does not exist)">Talk</a> | <a href="http://www.openstora.com/wiki/index.php?title=Special:Contributions/T0x" title="Special:Contributions/T0x">contribs</a>)</span></div>
+
+				<div id="mw-revision-nav">(<a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;diff=prev&amp;oldid=949" title="Enable system logging">diff</a>) <a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;direction=prev&amp;oldid=949" title="Enable system logging">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div>
+			</div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<div lang="en" dir="ltr" class="mw-content-ltr"><h2> <span class="mw-headline" id="Enable_system_logging"> Enable system logging </span></h2>
+<p>Stora by default doesn't log anything, this has been made in order to avoid filling the flash memory with info you won't be even able to read, unless of course you hack your Stora.
+Enabling system logging will give you the opportunity to better troubleshoot what's going on with your Stora, this isn't something you should do, it's Netgear duty to fix and troubleshoot their stuff, but sometimes it can be useful, especially if you install custom software and you need to troubleshoot why it's not working.
+Having said so, let's see how to enable logging!
+</p>
+<ul><li> ssh to your stora and gain root access
+</li><li> choose where to store your logs, you really want to place them under /home so they will end up on your hard drives (see <a href="#Note_on_GoFlex_Home">#Note on GoFlex Home</a>), I made a /home/log directory for example
+</li></ul>
+<pre>
+mkdir /home/log
+chmod 777 /home/log
+</pre>
+<ul><li> edit /etc/syslog.conf and uncomment the lines for the log you want to enable, I'm posting here my syslog.conf so you can see it better
+</li></ul>
+<pre>
+# Log all kernel messages to the console.
+# Logging much else clutters up the screen.
+#kern.*                                                 /dev/console
+
+# Log anything (except mail) of level info or higher.
+# Don't log private authentication messages!
+*.info;mail.none;authpriv.none;cron.none               /home/log/messages
+
+# The authpriv file has restricted access.
+authpriv.*                                             /home/log/secure
+
+# Log all the mail messages in one place.
+mail.*                                                 -/home/log/maillog
+
+
+# Log cron stuff
+cron.*                                                 /home/log/cron
+
+# Everybody gets emergency messages
+*.emerg                                                        *
+
+# Save news errors of level crit and higher in a special file.
+uucp,news.crit                                         /home/log/spooler
+
+# Save boot messages also to boot.log
+local7.*                                               /home/log/boot.log
+</pre>
+<p>Note that all the paths are edited from /var to /home so we log everything to the hard drive and don't fill the Stora's 256MB flashram!
+</p><p><br />
+</p>
+<ul><li> Restart syslogd
+</li></ul>
+<pre>
+/etc/init.d/syslog restart
+</pre>
+<p><br />
+From now on you'll be able to see all kind of loggings by examining files under /home/log!
+</p>
+<h2> <span class="mw-headline" id="Update_Logrotate"> Update Logrotate </span></h2>
+<p>Edit the logrotate configuration for syslogd, /etc/logrotate.d/syslog,  and change /var/log to /home/log
+</p>
+<pre>
+/home/log/messages /home/log/secure /home/log/maillog /home/log/spooler /home/log/boot.log /home/log/cron {
+    sharedscripts
+    postrotate
+        /bin/kill -HUP `cat /var/run/syslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || true
+        /bin/kill -HUP `cat /var/run/rsyslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || true
+    endscript
+}
+
+</pre>
+<h2> <span class="mw-headline" id="Note_on_GoFlex_Home"> Note on GoFlex Home </span></h2>
+<p>In the GoFlex Home, the <b>/home</b> directory is actually in the internal memory and, then, writing your logs there is not a good idea since it may fill your internal memory and it will wear out. You may want to change <b>/home</b> in all the previous discussion by <b>/mnt/eSata/.users/</b> that is where the users directories are actually stored in the hard disk or to any other folder under <b>/mnt/eSata</b>.
+</p><p>If you do not mind that your logs are in the public samba share, you can use <b>/home/0common</b> as it is an alias for the public samba share.
+</p><p>--<a href="http://www.openstora.com/wiki/index.php?title=User:Pippone&amp;action=edit&amp;redlink=1" class="new" title="User:Pippone (page does not exist)">Pippone</a> 12:55, 22 May 2010 (UTC)
+</p><p>--<a href="http://www.openstora.com/wiki/index.php?title=User:J.m.&amp;action=edit&amp;redlink=1" class="new" title="User:J.m. (page does not exist)">J.M.</a> 19:37, 7 March 2011 (UTC) - Note on GoFlex Home
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 46/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key hardwar6_wiki:pcache:idhash:37-0!*!0!!*!*!* and timestamp 20140121150026 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;oldid=949">http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;oldid=949</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="http://www.openstora.com/wiki/index.php?title=Talk:Enable_system_logging&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+
+<!-- SSO MOD -->
+<a href="http://www.openstora.com/phpBB3/ucp.php?mode=login" title="Login" accesskey="l">Login</a>
+                 / <a href="http://www.openstora.com/phpBB3/ucp.php?mode=register">Register</a>
+<!-- END SSO MOD -->
+
+<!-- 				<li id="pt-anonuserpage"><a href="/wiki/index.php?title=User:112.2.37.23" class="new" title="The user page for the IP address you are editing as [.]" accesskey=".">112.2.37.23</a></li>
+				<li id="pt-anontalk"><a href="/wiki/index.php?title=User_talk:112.2.37.23" class="new" title="Discussion about edits from this IP address [n]" accesskey="n">Talk for this IP address</a></li>
+				<li id="pt-anonlogin"><a href="/wiki/index.php?title=Special:UserLogin&amp;returnto=Enable+system+logging&amp;returntoquery=oldid%3D949" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>
+-->
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a title="Visit the main page" style="background-image: url(http://www.openstora.com/wiki/images/logo.png);" href="http://www.openstora.com/wiki/index.php?title=Main_Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-Website">
+		<h5>Website</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-HHU-Home"><a href="http://www.hardwarehackersunite.com/" rel="nofollow">HHU Home</a></li>
+				<li id="n-HHU-Forum"><a href="http://www.hardwarehackersunite.com/phpBB3" rel="nofollow">HHU Forum</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-Wiki">
+		<h5>Wiki</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Main-Page"><a href="http://www.openstora.com/wiki/index.php?title=Main_Page">Main Page</a></li>
+				<li id="n-Recent-changes"><a href="http://www.openstora.com/wiki/index.php?title=Special:Recentchanges" rel="nofollow">Recent changes</a></li>
+				<li id="n-Help"><a href="http://www.openstora.com/wiki/index.php?title=Help">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="http://www.openstora.com/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search OpenStora [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://www.openstora.com/wiki/index.php?title=Special:WhatLinksHere/Enable_system_logging" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://www.openstora.com/wiki/index.php?title=Special:RecentChangesLinked/Enable_system_logging" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://www.openstora.com/wiki/index.php?title=Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li><a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;oldid=949&amp;printable=yes" rel="alternate">Printable version</a></li>
+				<li id="t-permalink"><a href="http://www.openstora.com/wiki/index.php?title=Enable_system_logging&amp;oldid=949" title="Permanent link to this revision of the page">Permanent link</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="http://www.openstora.com/wiki/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+	</div>
+	<ul id="f-list">
+		<li id="privacy"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:Privacy_policy" title="OpenStora:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:About" title="OpenStora:About">About OpenStora</a></li>
+		<li id="disclaimer"><a href="http://www.openstora.com/wiki/index.php?title=OpenStora:General_disclaimer" title="OpenStora:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+	mw.loader.load(["mediawiki.user", "mediawiki.util", "mediawiki.page.ready", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+}
+</script>
+<script>if(window.mw){
+	mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,
+	"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mw.user.tokens.set({"editToken":"+\\","watchToken":false});;mw.loader.state({"user.options":"ready","user.tokens":"ready"});
+	
+	/* cache key: hardwar6_wiki:resourceloader:filter:minify-js:4:99acc2c3ab516bb21085c70c2195f3df */
+}
+</script><!-- Served in 0.610 secs. --></body>
+<!-- Mirrored from www.openstora.com/wiki/index.php?title=Enable_system_logging&oldid=949 by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 22 Jan 2014 08:02:04 GMT -->
+</html>
