@@ -1,2 +1,2 @@
 # OpenStora
-https://bluefad.github.io
+https://bluefad.github.io/OpenStora
