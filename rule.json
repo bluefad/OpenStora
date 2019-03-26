@@ -17,7 +17,7 @@
     "sizesort": "2"
   },
   {
-    "site": "磁力番号磁力",
+    "site": "磁力番号",
     "waiting": "0",
     "group": "//dl[@class='item']",
     "magnet": "//div[@class='content']//div[@class='torrent']//p[@class='dd magnet']//a[1]//@href",
